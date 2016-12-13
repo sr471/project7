@@ -75,3 +75,14 @@ var size = document.getElementById("sizeSelect").value
 
 
 })
+
+function clear() {
+  console.log("clear")
+  var rect = document.createElementNS(namespace, "rect")
+  rect.setAttribute("x", 0)
+  rect.setAttribute("y", 0)
+  rect.setAttribute("width", 800)
+  rect.setAttribute("height", 400)
+  rect.setAttribute("fill", "pink")
+  screen.appendChild(rect)
+}
