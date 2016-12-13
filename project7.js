@@ -30,16 +30,22 @@ function drawCircle(x, y, size, color) {
   screen.appendChild(newcircle)
 }
 
+function drawTriangle(x, y, size, color) {
+  var pts = "" + x + "," + y + " " + (x + size) + "," + y + " " + (x + 0.5*size) + "," + (y - size)
+  console.log(pts)
+  var triangle = document.createElementNS(namespace, "polygon")
+  triangle.setAttribute("points", pts)
+  triangle.setAttribute("fill", color)
+  screen.appendChild(triangle)
+}
 var drawing = false;
-// Step 3: Event listeners
+
 document.addEventListener("mousedown", function(e) {
   drawing = true;
 })
 
 document.addEventListener("mouseup", function(e) {
-drawing = false;
-  // what do you want to do when the user presses down
-  // on the mouse button?
+  drawing = false;
 })
 
 document.addEventListener("mousemove", function(e) {
@@ -47,11 +53,25 @@ var color = document.getElementById("colorSelect").value
 var shape = document.getElementById("shapeSelect").value
 var size = document.getElementById("sizeSelect").value
 
-  if (drawing){
+  if (drawing && shape == "circle"){
     var pt = transformPoint(e, screen)
-
-    if(shape == "circle")
-  drawCircle(pt.x, pt.y, 50, "purple")
+    drawCircle(pt.x, pt.y, size, color)
   }
-  
+
+  if (drawing && shape == "square"){
+    var pt = transformPoint(e, screen)
+    drawSquare(pt.x, pt.y, size, color)
+  }
+
+  if (drawing && shape == "triangle"){
+    var pt = transformPoint(e, screen)
+    drawTriangle(pt.x, pt.y, size, color)
+  }
+
+  if (drawing && shape == "eraser"){
+    var pt = transformPoint(e, screen)
+    drawCircle(pt.x, pt.y, size, "white")
+  }
+
+
 })
