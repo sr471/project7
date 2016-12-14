@@ -1,5 +1,9 @@
 var screen = document.getElementById("screen")
 var namespace = "http://www.w3.org/2000/svg"
+var colorArray = ["#FF0000","#FF3600","#FF5D00","#FF8F00","#FFC100","#FFF300",
+"#D1FF00","#87FF00","#36FF00","#00FF61","#00FFB2", "#00F7FF","#00AAFF","#003AFF","#2300FF","#8F00FF","#C500FF","#FF00E0"];
+var colorIndex = 0;
+
 
 // utility function
 function transformPoint(event) {
@@ -52,26 +56,35 @@ document.addEventListener("mousemove", function(e) {
 var color = document.getElementById("colorSelect").value
 var shape = document.getElementById("shapeSelect").value
 var size = document.getElementById("sizeSelect").value
-
-  if (drawing && shape == "circle"){
-    var pt = transformPoint(e, screen)
-    drawCircle(pt.x, pt.y, size, color)
+if(drawing){
+  if(color == "rainbow"){
+    color = colorArray[colorIndex]
+    colorIndex++
+    if(colorIndex == colorArray.length){
+      colorIndex = 0
+    }
   }
 
-  if (drawing && shape == "square"){
-    var pt = transformPoint(e, screen)
-    drawSquare(pt.x, pt.y, size, color)
-  }
+  if (shape == "circle"){
+  var pt = transformPoint(e, screen)
+  drawCircle(pt.x, pt.y, size, color)
+}
 
-  if (drawing && shape == "triangle"){
-    var pt = transformPoint(e, screen)
-    drawTriangle(pt.x, pt.y, size, color)
-  }
+if(shape == "square"){
+  var pt = transformPoint(e, screen)
+  drawSquare(pt.x, pt.y, size, color)
+}
 
-  if (drawing && shape == "eraser"){
-    var pt = transformPoint(e, screen)
-    drawCircle(pt.x, pt.y, size, "white")
+if (shape == "triangle"){
+  var pt = transformPoint(e, screen)
+  drawTriangle(pt.x, pt.y, size, color)
+}
+
+if (shape == "eraser"){
+  var pt = transformPoint(e, screen)
+  drawCircle(pt.x, pt.y, size, "white")
   }
+}
 
 
 })
@@ -85,4 +98,6 @@ function clear() {
   rect.setAttribute("height", 400)
   rect.setAttribute("fill", "pink")
   screen.appendChild(rect)
+
+  //canvasfive.removeChild(canvasfive.lastChild);
 }
