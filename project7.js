@@ -5,7 +5,7 @@ var colorArray = ["#FF0000","#FF3600","#FF5D00","#FF8F00","#FFC100","#FFF300",
 var colorIndex = 0;
 
 
-// utility function
+
 function transformPoint(event) {
   var pt = screen.createSVGPoint()
   pt.x = event.x
@@ -34,14 +34,7 @@ function drawCircle(x, y, size, color) {
   screen.appendChild(newcircle)
 }
 
-function drawTriangle(x, y, size, color) {
-  var pts = "" + x + "," + y + " " + (x + size) + "," + y + " " + (x + 0.5*size) + "," + (y - size)
-  console.log(pts)
-  var triangle = document.createElementNS(namespace, "polygon")
-  triangle.setAttribute("points", pts)
-  triangle.setAttribute("fill", color)
-  screen.appendChild(triangle)
-}
+
 var drawing = false;
 
 document.addEventListener("mousedown", function(e) {
@@ -75,10 +68,6 @@ if(shape == "square"){
   drawSquare(pt.x, pt.y, size, color)
 }
 
-if (shape == "triangle"){
-  var pt = transformPoint(e, screen)
-  drawTriangle(pt.x, pt.y, size, color)
-}
 
 if (shape == "eraser"){
   var pt = transformPoint(e, screen)
@@ -89,20 +78,6 @@ if (shape == "eraser"){
 
 })
 
-function clear() {
-  console.log("clear")
-/*  var rect = document.createElementNS(namespace, "rect")
-  rect.setAttribute("x", 0)
-  rect.setAttribute("y", 0)
-  rect.setAttribute("width", 800)
-  rect.setAttribute("height", 400)
-  rect.setAttribute("fill", "pink")
-  screen.appendChild(rect)*/
-
-  while (screen.lastChild) {
-    screen.removeChild(screen.lastChild);
-  }
-}
 
 document.getElementById("undo").addEventListener("click", function(){
     screen.removeChild(screen.lastChild);
