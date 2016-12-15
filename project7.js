@@ -91,13 +91,27 @@ if (shape == "eraser"){
 
 function clear() {
   console.log("clear")
-  var rect = document.createElementNS(namespace, "rect")
+/*  var rect = document.createElementNS(namespace, "rect")
   rect.setAttribute("x", 0)
   rect.setAttribute("y", 0)
   rect.setAttribute("width", 800)
   rect.setAttribute("height", 400)
   rect.setAttribute("fill", "pink")
-  screen.appendChild(rect)
+  screen.appendChild(rect)*/
 
-  //canvasfive.removeChild(canvasfive.lastChild);
+  while (screen.lastChild) {
+    screen.removeChild(screen.lastChild);
+  }
 }
+
+document.getElementById("undo").addEventListener("click", function(){
+    screen.removeChild(screen.lastChild);
+    console.log("undo")
+})
+
+document.getElementById("clear").addEventListener("click", function(){
+  while (screen.lastChild) {
+    screen.removeChild(screen.lastChild);
+  }
+    console.log("clear")
+})
